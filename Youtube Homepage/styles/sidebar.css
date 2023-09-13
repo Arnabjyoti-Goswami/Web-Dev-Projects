@@ -1,0 +1,33 @@
+/* Make position fixed for sidebar like did for header, and style accordingly: */
+.sidebar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  top: 55px;   /* height property of the header is 50px so set top: >=50px; */
+  width: 72px;
+  background-color: white;
+
+  z-index: 200; /* in the design the sidebar covers the header, this needs to be done else there will be empty space between them as top: 55px;  of sidebar and height: 50px;  of header */
+  padding-top: 5px; /* to move all the icons in the sidebar down a bit */
+  cursor: pointer;
+}
+.sidebar-boxes {
+  height: 74px;
+
+  display: flex; /* Make each of the sidebar icons containers a flexbox in order to align them to the center */
+  
+  flex-direction: column;
+
+  align-items: center; /* align-items now affects horizontal direction and justify-content now affects vertical direction, since flex-direction is set to column */
+  justify-content: center;
+}
+.sidebar-boxes:hover {
+  background-color: rgb(235,235,235);
+}
+.sidebar-boxes img {
+  height: 24px;
+  margin-bottom: 4px;
+}
+.sidebar-boxes div {
+  font-size: 10px;
+}

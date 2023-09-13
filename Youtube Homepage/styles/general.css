@@ -1,0 +1,13 @@
+p { 
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+body {
+  margin: 0; /* set all margins in all directions to zero */
+  padding-top: 80px;  /* so that header doesn't cover the content of the webpage */
+  padding-left: 96px;  /* so that sidebar doesn't cover the content of the webpage */
+  padding-right: 24px;
+  background-color: rgb(248,248,248);
+  font-family: Roboto, Arial; /* Text styles are inherited meaning they are applied for the elements inside the current element */
+}
