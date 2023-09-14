@@ -4,7 +4,7 @@ if(!cart) { //If cart is empty in the local storage initially, then we need to s
   cart = []; //default value of the cart is an empty cart
 }
 
-function saveToStorage() { //save cart to local storage so that variables aren't reset when the page is refreshed, add this function at the end of addToCart() and removeFromCart() functions
+export function saveToStorage() { //save cart to local storage so that variables aren't reset when the page is refreshed, add this function at the end of addToCart() and removeFromCart() functions
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 

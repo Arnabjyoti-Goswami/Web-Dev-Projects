@@ -1,4 +1,4 @@
-import {cart, removeFromCart} from '../data/cart.js';
+import {cart, removeFromCart, saveToStorage} from '../data/cart.js';
 import {products} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 
@@ -33,10 +33,14 @@ cart.forEach( (cartItem) => {
         <span>
           Quantity: <span class="quantity-label">${cartItem.quantity}</span>
         </span>
-        <span class="update-quantity-link link-primary">
+        <span class="update-quantity-link link-primary   update-product-js"     data-product-id="${matchingProduct.id}">
           Update
         </span>
-        <span class="delete-quantity-link link-primary delete-product-js" data-product-id="${matchingProduct.id}">
+
+        <input class="quantity-input"></input>
+        <span class="save-quantity-input  link-primary">Save</span>
+
+        <span class="delete-quantity-link link-primary   delete-product-js" data-product-id="${matchingProduct.id}">
           Delete
         </span>
       </div>
@@ -95,6 +99,13 @@ document.querySelector('.order-summary').innerHTML = cartSummaryHTML;
 
 
 updateCartQuantityHeader(); // Display the current number of items in the header of the checkout page
+function updateCartQuantityHeader() {
+  let cartQuantity = 0;
+  cart.forEach( (cartItem) => {
+    cartQuantity += cartItem.quantity ;
+  });
+  document.querySelector('.cart-quantity-header-js').innerHTML = `${cartQuantity} items`; // display total number of items in the cart above the cart button
+}
 
 // Make delete button for the items in the checkout page functional:
 document.querySelectorAll('.delete-product-js').forEach( (link) => {
@@ -108,10 +119,36 @@ document.querySelectorAll('.delete-product-js').forEach( (link) => {
   });
 });
 
-function updateCartQuantityHeader() {
-  let cartQuantity = 0;
-  cart.forEach( (cartItem) => {
-    cartQuantity += cartItem.quantity ;
+
+// Make update button for the items in the checkout page functional:
+document.querySelectorAll('.update-product-js').forEach( (link) => {
+  link.addEventListener('click', () => {
+    const currentProductId = link.dataset.productId; // get the productId of the current element in the iteration of the forEach loop using the data attribute created before
+
+    const container = document.querySelector(`.cart-item-container-${currentProductId}-js`);
+    container.classList.add('is-editing-quantity');
+
+    // implement functionality of the update button:
+    container.querySelector('.save-quantity-input').addEventListener('click', () => {
+      const inputBoxValue = container.querySelector('.quantity-input').value;
+      const quantity = Number(inputBoxValue); // get the value of the quantity from the input textbox
+      
+      updateQuantity(currentProductId, quantity); // update quantity of the product in the cart
+      container.querySelector('.quantity-label').innerHTML = `${quantity}`; //show the new quantity label
+
+      container.classList.remove('is-editing-quantity'); // so that we can switch between Update and Save, as this line of code would reverse all the styling applied when editing the quantity by just removing the is-editing-quantity class
+
+      updateCartQuantityHeader();
+    });
+
   });
-  document.querySelector('.cart-quantity-header-js').innerHTML = `${cartQuantity} items`; // display total number of items in the cart above the cart button
+});
+
+function updateQuantity(productId, quantity) {
+  cart.forEach( (cartItem) => {
+    if(cartItem.productId === productId) {
+      cartItem.quantity = quantity;
+    }
+  } );
+  saveToStorage();
 }

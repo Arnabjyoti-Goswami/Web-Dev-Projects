@@ -116,7 +116,7 @@
 }
 
 .product-quantity .link-primary {
-  margin-left: 3px;
+  margin-left: 3px; 
 }
 
 @media (max-width: 1000px) {
@@ -208,4 +208,22 @@
 
   margin-top: 11px;
   margin-bottom: 15px;
+}
+
+
+.quantity-input {
+  width: 30px;
+}
+.save-quantity-input,
+.quantity-input {
+  display: none; /* will be invisible at the start */
+}
+
+.is-editing-quantity .quantity-input , /* from the .cart-item-container-{ID}-js's to which the class .is-editing-quantity-{ID}-js was added by classList upon clicking of the update button, select the .quantity-input elements*/
+.is-editing-quantity .save-quantity-input {
+  display: initial;  /* display the input box and save option for updated quantities once the update button is clicked */
+}
+.is-editing-quantity .quantity-label,
+.is-editing-quantity .update-quantity-link {
+  display: none;  /* when updating the quantity, remove the current quantity (as it will be updated) and the Update link (as already currently updating only) */
 }
