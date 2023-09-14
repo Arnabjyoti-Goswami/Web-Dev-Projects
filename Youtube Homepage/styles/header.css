@@ -45,9 +45,11 @@
   height: 24px;
   margin-left: 24px;
   margin-right: 20px;
+  cursor: pointer;
 }
 .youtube-logo {
   height: 20px;
+  cursor: pointer;
 }
 
 /* header-middle elements */
@@ -83,6 +85,7 @@
   justify-content: center;
   align-items: center;
   position: relative; /* for positioning of the tooltip which is an element inside this element */
+  cursor: pointer;
 }
 
 .search-button .tooltip,
@@ -147,7 +150,9 @@
   padding: 2px 5px; /* top_bottom left_right */
   border-radius: 10px;
 }
+
 .current-user-picture {
   height: 32px;
   border-radius: 16px;
+  cursor: pointer;
 }

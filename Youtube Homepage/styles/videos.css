@@ -75,3 +75,13 @@
 .video-author {
   margin-bottom: 4px;
 }
+
+
+.video-title,
+.thumbnail-container {
+  cursor: pointer;
+}
+.video-author,
+.pfp {
+  cursor: pointer;
+}
