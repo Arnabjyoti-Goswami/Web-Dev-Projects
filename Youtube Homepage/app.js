@@ -8,7 +8,7 @@ document.querySelector('.youtube-logo').addEventListener('click', () => {
 document.querySelectorAll('.open-video-1-js').forEach((element) => {
   element.addEventListener('click', () => {
   const url = 'https://www.youtube.com/watch?v=n2RNcPRtAiY&ab_channel=MarquesBrownlee';
-  window.open(url, '_blank'); // window.location.href = url;  to open the new url in the same tag
+  window.open(url, '_blank'); // window.location.href = url;  to open the new url in the same tab
   });
 });
 document.querySelectorAll('.open-channel-1-js').forEach((element) => {
