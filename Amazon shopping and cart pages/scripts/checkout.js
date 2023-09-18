@@ -1,4 +1,4 @@
-import {cart, removeFromCart, saveToStorage} from '../data/cart.js';
+import {cart, removeFromCart, saveToStorage, calculateTotalItemsInCart} from '../data/cart.js';
 import {products} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 
@@ -100,10 +100,7 @@ document.querySelector('.order-summary').innerHTML = cartSummaryHTML;
 
 updateCartQuantityHeader(); // Display the current number of items in the header of the checkout page
 function updateCartQuantityHeader() {
-  let cartQuantity = 0;
-  cart.forEach( (cartItem) => {
-    cartQuantity += cartItem.quantity ;
-  });
+  let cartQuantity = calculateTotalItemsInCart();
   document.querySelector('.cart-quantity-header-js').innerHTML = `${cartQuantity} items`; // display total number of items in the cart above the cart button
 }
 
@@ -183,7 +180,7 @@ document.querySelector('.payment-summary-js').innerHTML = `
 </div>
 
 <div class="payment-summary-row">
-  <div>Items (3):</div>
+  <div class="total-items-in-cart-js">Items (3):</div>
   <div class="payment-summary-money  items-total-cost-js"></div>
 </div>
 
@@ -239,6 +236,7 @@ function calculateTax(itemsTotalCost, shippingTotalCost) {
 
 // Function to update the payment summary
 function updatePaymentSummary() {
+  const itemQuantity = calculateTotalItemsInCart();
   const itemsTotalCost = calculateItemsTotalCost();
   const shippingTotalCost = calculateShippingTotalCost();
   const totalBeforeTax = itemsTotalCost + shippingTotalCost;
@@ -246,6 +244,7 @@ function updatePaymentSummary() {
   const orderTotal = itemsTotalCost + shippingTotalCost + tax;
 
   // Update the HTML elements with the calculated values:
+  document.querySelector('.total-items-in-cart-js').textContent = `Items (${itemQuantity}):`
   document.querySelector('.items-total-cost-js').textContent = `$${formatCurrency(itemsTotalCost)}`;
   document.querySelector('.shipping-total-cost-js').textContent = `$${formatCurrency(shippingTotalCost)}`;
   document.querySelector('.total-before-tax-js').textContent = `$${formatCurrency(totalBeforeTax)}`;
