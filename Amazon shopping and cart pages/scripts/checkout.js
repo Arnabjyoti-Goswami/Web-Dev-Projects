@@ -14,7 +14,7 @@ cart.forEach( (cartItem) => {
 
   cartSummaryHTML += 
 `<div class="cart-item-container    cart-item-container-${matchingProduct.id}-js">
-  <div class="delivery-date">
+  <div class="delivery-date  delivery-date-${matchingProduct.id}-js">
     Delivery date: Tuesday, June 21
   </div>
 
@@ -152,3 +152,19 @@ function updateQuantity(productId, quantity) {
   } );
   saveToStorage();
 }
+
+
+// Make the delivery date options functional
+document.querySelectorAll('.delivery-option-input').forEach((radio) => {
+  radio.addEventListener('change', () => {
+    const currentProductId = radio.getAttribute('name').replace('delivery-option-', ''); // get the productId for which the radio button selector on which a change occurs
+    const deliveryDateElement = document.querySelector(`.delivery-date-${currentProductId}-js`); // select the delivery date element so that we can change its innerHTML according to the option selected
+    const selectedOption = document.querySelector(`input[name="delivery-option-${currentProductId}"]:checked`); // get the selected option out of the all the radio selector options available for the current product
+    
+    // Get the selected delivery date and update the delivery date element
+    if (selectedOption) {
+      const selectedDeliveryDate = selectedOption.nextElementSibling.querySelector('.delivery-option-date').textContent; // get the delivery date data for the selectedOption
+      deliveryDateElement.textContent = `Delivery date: ${selectedDeliveryDate}`; // update the innerHTML of the delivery date element
+    }
+  });
+});
